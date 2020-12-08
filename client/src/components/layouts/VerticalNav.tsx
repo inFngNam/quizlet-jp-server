@@ -1,24 +1,44 @@
-import React, { useState } from 'react';
-import { AiFillGolden, AiFillFolderOpen, AiFillHome, AiFillCarryOut } from 'react-icons/ai';
+import React, { useContext, useState } from 'react';
+import { AiFillGolden, AiFillFolderOpen, AiFillHome, AiFillCarryOut, AiFillBank } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import AddFolderForm from '../folder/AddFolderForm';
 import { createFolder } from '../../redux/actions/folderActions';
-import { CreateFolderInput } from '../../types';
+import { CreateFolderInput, CreateClassInput } from '../../types';
+import { createClass } from "../../redux/actions/classActions";
 import { connect } from 'react-redux';
 import { useToasts } from 'react-toast-notifications';
+import AddClassForm from '../class/AddClassForm';
+import { ControlContext } from '../../hooks/ControlContext';
 
-const VerticalNav = ({ createFolder, folders, user, setTabIndex, tabIndex }: any) => {
+const VerticalNav = ({
+    createFolder,
+    folders,
+    user,
+    classes,
+    createClass,
+    joined
+}: any) => {
     const [showCreateFolder, setShowCreateFolder] = useState(false);
     const hideCreateFolderCreateFolder = () => {
         setShowCreateFolder(false);
     }
+    const [showCreateClass, setShowCreateClass] = useState(false);
+    const hideCreateClass = () => {
+        setShowCreateClass(false);
+    }
     const { addToast } = useToasts();
+    const {
+        tabIndex, setTabIndex,
+        showAddFolder, setShowAddFolder, hideAddFolder,
+        showAddClass, setShowAddClass, hideAddClass
+    } = useContext(ControlContext);
+    // console.log(a)
     return (
         <div>
             <ul className="vertical-nav">
                 <li className="nav-home">
 
-                    <Link to="/overview" className="active">
+                    <Link to="/overview" onClick={() => setTabIndex(3)} className="active">
 
                         <AiFillHome></AiFillHome> Trang chủ
 
@@ -38,21 +58,22 @@ const VerticalNav = ({ createFolder, folders, user, setTabIndex, tabIndex }: any
                     <ul className="vertical-nav-child">
                         {folders && folders.list.length > 0 ? folders.list.map((folder: any, index: any) => (
                             <li key={index}>
-                                <a href={`folder?code=${folder.code}&id=${folder.id}`}>
+
+                                <Link to={`/${user?.user?.username}/folder?code=${folder.code}&id=${folder.id}`}>
                                     {folder.name}
-                                </a>
+                                </Link>
                             </li>
                         )) : null}
                         <li>
                             <a
                                 style={{ color: "#3ccfcf" }}
-                                onClick={() => setShowCreateFolder(true)}
+                                onClick={setShowAddFolder}
                             >
                                 Thêm thư mục
                             </a>
                             <AddFolderForm
-                                showCreateFolder={showCreateFolder}
-                                hideCreateFolderCreateFolder={hideCreateFolderCreateFolder}
+                                showAddFolder={showAddFolder}
+                                hideAddFolder={hideAddFolder}
                                 createFolder={createFolder}
                                 addToast={addToast}
                                 user={user}
@@ -61,9 +82,48 @@ const VerticalNav = ({ createFolder, folders, user, setTabIndex, tabIndex }: any
                     </ul>
                 </li>
                 <li>
-                    <a href="#about">
-                        <AiFillGolden></AiFillGolden> Lớp học
-                    </a></li>
+                    <Link to="/overview#class" onClick={() => setTabIndex(4)} className={tabIndex == 4 ? "active" : ''}>
+                        <AiFillGolden></AiFillGolden> Lớp học ( {classes.totalClasses} )
+                    </Link>
+                    <ul className="vertical-nav-child">
+                        {classes && classes.list.length > 0 ? classes.list.map((item: any, index: any) => (
+                            <li key={index}>
+                                <Link to={`/${user?.user?.username}/class?code=${item.code}&id=${item.id}`}>
+                                    {item.name}
+                                </Link>
+                            </li>
+                        )) : null}
+                        <li>
+                            <a
+                                style={{ color: "#3ccfcf" }}
+                                onClick={setShowAddClass}
+                            >
+                                Thêm lớp học mới
+                            </a>
+                            <AddClassForm
+                                showAddClass={showAddClass}
+                                hideAddClass={hideAddClass}
+                                user={user}
+                                addToast={addToast}
+                                createClass={createClass}
+                            />
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a>
+                        <AiFillBank></AiFillBank> Đã tham gia ( {joined?.totalJoined} )
+                    </a>
+                    <ul className="vertical-nav-child">
+                        {joined && joined.list.length > 0 ? joined.list.map((item: any, index: any) => (
+                            <li key={index}>
+                                <Link to={`/${item?.username}/class?code=${item.code}&id=${item.id}`}>
+                                    {item.name}
+                                </Link>
+                            </li>
+                        )) : null}
+                    </ul>
+                </li>
             </ul>
         </div>
     )
@@ -71,13 +131,17 @@ const VerticalNav = ({ createFolder, folders, user, setTabIndex, tabIndex }: any
 const mapStateToProps = (state: any) => {
     return {
         user: state.user,
-        folders: state.folders
+        folders: state.folders,
+        classes: state.classes,
+        joined: state.joined
     }
 }
 const mapDispatchToProps = (dispatch: any) => {
     return {
         createFolder: (token: string, input: CreateFolderInput,
-            addToast: any) => dispatch(createFolder(token, input, addToast))
+            addToast: any) => dispatch(createFolder(token, input, addToast)),
+        createClass: (token: string, input: CreateClassInput,
+            addToast: any) => dispatch(createClass(token, input, addToast))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(React.memo(VerticalNav));

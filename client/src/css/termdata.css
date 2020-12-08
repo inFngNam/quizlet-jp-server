@@ -1,0 +1,58 @@
+
+.ten-hoc-phan {
+    margin: 1rem;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+.term-items {
+    margin-bottom: 30px;
+}
+.term-items:hover {
+    background-color: #fff8d0;
+}
+.term-button-container {
+    margin-bottom: 10px;
+}
+.term-button-container:hover {
+    border-bottom: 3px solid #ffcd1f;
+    transition: all .4s;
+}
+.term-content-right {
+    /* width: 40rem; */
+    margin: auto;
+    box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: 25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    
+    cursor: pointer;
+}
+
+.list-term-container{
+    width: 100%;
+    background-color: #f6f7fb;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    
+}
+
+.list-terms{
+    width: 70rem;
+}
+
+.arrow {
+    cursor: pointer;
+    font-size: 1.5rem;
+    margin: 0 1rem;
+}
+
+.arrow:hover{
+    color: coral;
+}
+

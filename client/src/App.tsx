@@ -10,10 +10,12 @@ import store, { persistor } from './redux/store';
 import { ToastProvider } from "react-toast-notifications";
 import { PersistGate } from 'redux-persist/integration/react';
 import { resolverReload } from "./redux/actions/reloadActions";
+import ControlProvider from "./hooks/ControlContext";
 function App() {
   store.dispatch(resolverReload())
   return (
     <div className="App">
+      <ControlProvider>
       <ToastProvider placement="bottom-left">
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
@@ -23,6 +25,7 @@ function App() {
           </PersistGate>
         </Provider>
       </ToastProvider>
+      </ControlProvider>
     </div>
   );
 }

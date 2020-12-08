@@ -1,0 +1,21 @@
+.result-item {
+    margin: 0 auto;
+    margin-top: 50px;
+    border-bottom: 4px solid #ffcd1f;
+}
+.result-item:hover {
+    border-bottom: 4px solid #ffcd1f;
+}
+.avatar-custom-result {
+    border-radius: 50%;
+    max-width: 70px;
+    max-height: 70px;
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+}
+.author-result-search {
+    font-size: 17px; 
+    font-weight: bold;
+    padding: 15px
+}

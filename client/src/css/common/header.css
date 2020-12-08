@@ -68,7 +68,6 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    margin-right: 3rem;
 }
 
 .button {
@@ -116,9 +115,46 @@
 .avatar:hover {
     opacity: 0.7;
 }
+.rigth-container .header-icon-responsive:first-child {
+    margin-right: 30px;
+    font-size: 20px;
+}
+.rigth-container .header-icon-responsive:nth-child(2) {
+    margin-right: 0px;
+    font-size: 20px;
+}
+.header-icon-responsive-container {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    right: 104px;
+    top: 30px;
+}
+.header-icon-responsive {
+    display: none;
+}
+#q {
+    display: none;
+}
 @media only screen and (max-width: 768px) {
     .right {
         display: none !important;
+    }
+    .header-icon-responsive {
+        display: inline;
+    }
+}
+@media only screen and (max-width: 460px) {
+    #quizlet {
+        display: none;
+    }
+    #q {
+        display: inline;
+    }
+    .left-container {
+        position: relative;
+        top: 8px;
+        left: 7px;
     }
 }
 
@@ -127,7 +163,7 @@
         margin-left: .3rem;
     }
     .rigth-container {
-        margin-right: 1rem;
+        margin-right: -3rem;
     }
     .avatar-custom {
         max-width: 80px;

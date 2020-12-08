@@ -1,11 +1,10 @@
 import React, { useRef } from 'react';
 import { Modal, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { convertRefToObject } from '../../helper/converRefToObj';
 
 const AddFolderForm = ({
-    showCreateFolder,
-    hideCreateFolderCreateFolder,
+    showAddFolder,
+    hideAddFolder,
     createFolder,
     user,
     addToast
@@ -14,10 +13,10 @@ const AddFolderForm = ({
     const createFolderHandle = () => {
         const input = convertRefToObject(folderRef.current)
         createFolder(user.token, input, addToast)
-        hideCreateFolderCreateFolder()
+        hideAddFolder()
     }
     return (
-        <Modal show={showCreateFolder} onHide={hideCreateFolderCreateFolder}>
+        <Modal show={showAddFolder} onHide={hideAddFolder}>
             <Modal.Header closeButton>
                 <Modal.Title>
                     Thêm thư mục mới

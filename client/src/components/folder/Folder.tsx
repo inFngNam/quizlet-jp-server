@@ -32,7 +32,7 @@ const Folder = (props: any) => {
                     updateFolder={updateFolder}
                 />
             </Card.Header>
-            <Link to={`folder?code=${folder.code}&id=${folder.id}`} style={{textDecoration: "none", color: "black"}}>
+            <Link to={`/${user?.user?.username}/folder?code=${folder.code}&id=${folder.id}`} style={{textDecoration: "none", color: "black"}}>
                 <Card.Body className="folder-body">
                     <Card.Title>{folder?.name}</Card.Title>
                     <Card.Text>

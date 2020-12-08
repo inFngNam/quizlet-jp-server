@@ -51,7 +51,17 @@ const MainPage = ({ user, setTabIndex, tabIndex }: any) => {
                     </Button>
                 </ButtonGroup>
                 <Form className="selections-controller">
-                    <Form.Control as="select" size="sm" className="mr-sm-2 custom-form" defaultValue={3} custom>
+                    <Form.Control
+                        as="select"
+                        size="sm"
+                        className="mr-sm-2 custom-form"
+                        defaultValue={tabIndex}
+                        custom
+                        onChange={(event: any) => {
+                            console.log("VALUE", event.target.value)
+                            setTabIndex(parseInt(event.target.value))
+                        }}
+                    >
                         <option value={1}>Hoạt động gần đây</option>
                         <option value={2}>Học phần</option>
                         <option value={3}>Thư mục</option>

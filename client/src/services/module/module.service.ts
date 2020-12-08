@@ -1,7 +1,7 @@
 import { Api, HTTP_METHOD } from '../../types';
 import { BASE_URL } from '../../constants';
 export const MODULE_GET: Api = {
-    url: `${BASE_URL}/module/allModules`,
+    url: `${BASE_URL}/module/selfModule`,
     method: HTTP_METHOD.GET
 }
 

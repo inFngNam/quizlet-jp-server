@@ -3,36 +3,43 @@ import { Modal, Form } from 'react-bootstrap';
 import { convertRefToObject } from '../../helper/converRefToObj';
 
 const AddClassForm = ({
-    showCreateClass,
-    hideUpdateClassCreateClass,
+    showAddClass,
+    hideAddClass,
     createClass,
     user,
-    addToast
+    addToast,
 }: any) => {
     const classRef: any = useRef([]);
     const createClassHandle = () => {
         const input = convertRefToObject(classRef.current)
         createClass(user.token, input, addToast)
-        hideUpdateClassCreateClass()
+        hideAddClass()
     }
     return (
-        <Modal show={showCreateClass} onHide={hideUpdateClassCreateClass}>
+        <Modal show={showAddClass} onHide={hideAddClass}>
             <Modal.Header closeButton>
                 <Modal.Title>
                     Thêm class mới
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <div className="login-form-container">
+                <div className="login-form-container">
                     <Form>
                         <Form.Control
-                            placeholder="Nhập tiêu đề..."
+                            placeholder="Nhập tên lớp học..."
                             name="name"
                             className="login-form"
                             ref={(el: any) => (classRef.current['name'] = el)}
                             required
                         >
                         </Form.Control>
+                        <Form.Control
+                            placeholder="Mô tả..."
+                            name="name"
+                            className="login-form"
+                            ref={(el: any) => (classRef.current['description'] = el)}
+                            required
+                        ></Form.Control>
                         <Form.Control
                             as="select"
                             name="public"

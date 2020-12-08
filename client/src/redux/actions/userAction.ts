@@ -43,7 +43,7 @@ export const register = (credential: RegisterInput, addToast: any) => {
             })
             .catch(e => {
                 if (addToast) {
-                    addToast("Register failed !", {
+                    addToast(e?.message || "Register failed", {
                         appearance: "error",
                         autoDismiss: true
                     })

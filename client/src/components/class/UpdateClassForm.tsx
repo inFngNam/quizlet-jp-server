@@ -4,24 +4,24 @@ import { convertRefToObject } from '../../helper/converRefToObj';
 
 const UpdateClassForm = ({
     showUpdateClass,
-    hideUpdateClassCreateClass,
+    hideUpdateClass,
     user,
     addToast,
     class_,
     updateClass
 }: any) => {
         const classRef: any = useRef([]);
-        const updateFolderHandle = () => {
+        const updateClassHandle = () => {
             const input = convertRefToObject(classRef.current)
             console.log(input)
             updateClass(user.token, class_.id, input, addToast)
-            hideUpdateClassCreateClass()
+            hideUpdateClass()
         }
     return (
-        <Modal show={showUpdateClass} onHide={hideUpdateClassCreateClass}>
+        <Modal show={showUpdateClass} onHide={hideUpdateClass}>
             <Modal.Header closeButton>
                 <Modal.Title>
-                    Sửa đổi thư mục
+                    Sửa đổi lớp học
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -37,6 +37,13 @@ const UpdateClassForm = ({
                         >
                         </Form.Control>
                         <Form.Control
+                            placeholder="Nhập mô tả (tùy chọn)"
+                            name="description"
+                            ref={(el: any) => (classRef.current['description'] = el)}
+                            className="login-form"
+                            defaultValue={class_?.description}
+                        ></Form.Control>
+                        <Form.Control
                             as="select"
                             name="public"
                             ref={(el: any) => (classRef.current['public'] = el)}
@@ -51,7 +58,7 @@ const UpdateClassForm = ({
                             name="update"
                             value="Xác nhận thay đổi"
                             className="login-button"
-                            onClick={updateFolderHandle}
+                            onClick={updateClassHandle}
                         >
                         </Form.Control>
                     </Form>

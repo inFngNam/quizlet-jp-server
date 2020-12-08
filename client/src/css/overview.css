@@ -68,6 +68,11 @@
   margin: 0 auto;
   margin-top: 50px;
   float: none;
+  cursor: pointer;
+}
+
+.card-container:hover{
+  border-bottom: 5px coral solid;
 }
 
 .start-learn {
@@ -80,4 +85,7 @@
   /* color: coral; */
   background-color: #3ccfcf;
   opacity: 0.7;
+}
+.pd-r-30 {
+  padding-right: 0;
 }

@@ -47,6 +47,10 @@
     margin-top: 15px;
     margin-right: 20px;
     width: 24rem;
+    border-radius: 8px;
+}
+.module-item:hover {
+    border-bottom: 4px solid #ffcd1f;
 }
 .avatar-small {
     width: 30px;

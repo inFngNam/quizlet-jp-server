@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo, useContext } from 'react'
 import HeaderPage from '../components/layouts/Header'
 import { Row, Col, Navbar, Card, Button, Container } from 'react-bootstrap';
 import { FaHome, FaLeaf } from 'react-icons/fa';
@@ -12,16 +12,17 @@ import MainPage from '../components/layouts/MainPage';
 import ListModule from '../components/ListModule';
 import ListFolder from '../components/folder/ListFolder';
 import VerticalNav from '../components/layouts/VerticalNav';
+import ListClass from '../components/class/ListClass';
+import { ControlContext } from '../hooks/ControlContext';
+// export const ControlContext = React.createContext<any>(null);
+
 const Overview = ({ user }: any) => {
 
     const [showList, setShowList] = useState(true);
-
-
-
     const show = (s: any) => {
         setShowList(s);
     }
-    const [tabIndex, setTabIndex] = useState(3);
+    const { tabIndex, setTabIndex } = useContext(ControlContext);
     useEffect(() => {
         me(user.token)
     }, [])
@@ -31,22 +32,25 @@ const Overview = ({ user }: any) => {
     return (
         <React.Fragment>
             <Row>
-                <Col md={12} >
+                <Col md={12} className="pd-r-30">
                     <HeaderPage />
                 </Col>
             </Row>
             <Row>
                 <Col md={3} className="vertical-nav-container">
-                    <VerticalNav setTabIndex={setTabIndex} tabIndex={tabIndex}/>
+                    <VerticalNav />
                 </Col>
-                <Col md={9} style={{paddingBottom: "200px"}}>
+                <Col md={9} style={{ paddingBottom: "200px" }}>
                     <MainPage show={show} showList={showList} tabIndex={tabIndex} setTabIndex={setTabIndex} user={user} />
+                    {tabIndex == 2 ? (
+                        <ListModule user={user} />
+                    ) : null}
                     {tabIndex === 3 ? (
                         <ListFolder user={user} />
                     ) : null}
-                    {tabIndex == 2 ? (
-                        <ListModule user={user} />
-                    ): null}
+                    {tabIndex === 4 ? (
+                        <ListClass user={user} />
+                    ) : null}
                 </Col>
             </Row>
         </React.Fragment>

@@ -11,7 +11,6 @@ const ListModule = ({ module, deleteModule, user }: any) => {
     const [addCourse, setAddCourse] = useState(false);
 
     const handleAdd = () => {
-        console.log("dit con me may");
         setAddCourse(true);
     }
 
@@ -37,11 +36,14 @@ const ListModule = ({ module, deleteModule, user }: any) => {
                                 module.list.map((item: any) => {
                                     return (
                                         <React.Fragment key={item.id}>
-                                            <ModuleCard
-                                                deleteModule={deleteModule}
-                                                module={item}
-                                                user={user}
-                                            ></ModuleCard>
+                                            {/* <Link to={`/course/${item.id}`} style={{textDecoration: "none"}}> */}
+                                                <ModuleCard
+                                                    deleteModule={deleteModule}
+                                                    module={item}
+                                                    user={user}
+                                                ></ModuleCard>
+                                            {/* </Link> */}
+                                            
                                         </React.Fragment>
                                     )
                                 })

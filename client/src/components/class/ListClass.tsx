@@ -1,21 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
-import { createClass, deleteClass, updateClass } from '../../redux/actions/classActions'
+import { deleteClass, updateClass } from '../../redux/actions/classActions'
 import Class from './Class';
-import { CreateClassInput,  UpdateClassInput } from '../../types';
-import { Col, Container, Row } from 'react-bootstrap';
-import { AiFillFolderAdd } from 'react-icons/ai';
-import AddClassForm from './AddClassForm';
-import VerticalNav from '../layouts/VerticalNav';
+import { UpdateClassInput } from '../../types';
+import { Col, Row } from 'react-bootstrap';
 
-const ListClass = ({ classes, deleteClass, createClass, user, updateClass }: any) => {
+const ListClass = ({ classes, deleteClass, user, updateClass }: any) => {
     const { addToast } = useToasts();
-    const [showCreateClass, setShowCreateClass] = useState(false);
-    const hideCreateClassCreateClass = () => {
-        setShowCreateClass(false);
-    }
+    
     return (
         // <Container>
             <Row>
@@ -52,8 +45,6 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
     return {
         deleteClass: (token: string, class_id: number, addToast: any) => dispatch(deleteClass(token, class_id, addToast)),
-        createClass: (token: string, input: CreateClassInput,
-            addToast: any) => dispatch(createClass(token, input, addToast)),
         updateClass: (token: string, class_id: number,
             input: UpdateClassInput,
             addToast: any) => dispatch(updateClass(token, class_id, input, addToast))

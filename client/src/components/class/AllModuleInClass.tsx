@@ -1,73 +1,94 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Row, Col, Card, Spinner, OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
-import { getModulesInFolder } from '../../redux/actions/folderActions';
+import { getModulesInClass } from '../../redux/actions/classActions';
 import { connect } from 'react-redux';
 import { AiOutlineDelete } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
-const AllModuleInClass = ({ user, class_, getModulesInClass, addToast, classes, deleteModuleFromClass }: any) => {
+const AllModuleInClass = ({
+    user,
+    class_,
+    getModulesInClass,
+    addToast,
+    classes,
+    deleteModuleFromClass,
+    usernamePath
+}: any) => {
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
+        setLoading(true);
         if (user?.token) {
-          getModulesInClass(user.token, class_.id, addToast)
+            getModulesInClass(user.token, class_.id, addToast, () => {
+                setLoading(false)
+            })
         }
-    }, [addToast, class_.id, getModulesInClass, user])
+    }, [class_])
     return (
         <React.Fragment>
-            {classes && classes.totalModules > 0 ? (
-                <Row className="list-module-folder">
-                    <Col sm={1}></Col>
-                    <Col sm={11}>
-                        <Row>
-                            {classes.modules.map((module: any, i: any) => (
-                                <Card className="module-item" key={i}>
-                                    <Card.Body>
-                                        <Card.Title>{module.name}</Card.Title>
-                                        <Card.Subtitle className="mb-2 text-muted">
-                                            <img src={user?.user?.avatar ? `${user?.user?.avatar}` : require('../../assets/avatar.png')} className="avatar-small" />
-                                            {" " + user?.user?.username}
-                                        </Card.Subtitle>
-                                        <Card.Text>
-                                            {module?.description}
-                                        </Card.Text>
-                                        <Card.Link>
-                                            <OverlayTrigger
-                                                placement="bottom"
-                                                overlay={
-                                                    <Tooltip id="folder-delete">
-                                                        Xóa học phần
+            {loading === false ? (
+                <React.Fragment>
+                    <Row style={{ marginTop: "15px" }} className="d-flex justify-content-center">
+                        {classes.totalModules > 0 ? (
+                            <h3>Học phần ( {classes.totalModules} )</h3>
+                        ) : null}
+                    </Row>
+                    <Row className="list-module-folder">
+                        <Col sm={1}></Col>
+                        <Col sm={11}>
+                            <Row>
+                                {classes && classes.totalModules > 0 && classes.modules.map((module: any, i: any) => (
+                                    <Card className="module-item" key={i}>
+                                        <Card.Body>
+                                            <Link to={`/course/${module.name}/${module.id}`} style={{ textDecoration: "none", color: "black" }}>
+                                                <Card.Title>{module.name}</Card.Title>
+                                                <Card.Subtitle className="mb-2 text-muted">
+                                                    <img src={user?.user?.avatar ? `${user?.user?.avatar}` : require('../../assets/avatar.png')} className="avatar-small" />
+                                                    {" " + user?.user?.username}
+                                                </Card.Subtitle>
+                                                <Card.Text>
+                                                    {module?.description}
+                                                </Card.Text>
+                                            </Link>
+                                            <Card.Link>
+                                                {usernamePath === user?.user?.username ? (
+                                                    <OverlayTrigger
+                                                        placement="bottom"
+                                                        overlay={
+                                                            <Tooltip id="folder-delete">
+                                                                Xóa học phần
                                                      </Tooltip>
-                                                }
-                                            >
-                                                <Button
-                                                    variant="outline-danger"
-                                                    className="folder-actions"
-                                                    onClick={() => deleteModuleFromClass(user.token, module.id, class_.id, addToast)}
-                                                >
-                                                    <AiOutlineDelete />
-                                                </Button>
-                                            </OverlayTrigger>
-                                        </Card.Link>
-                                    </Card.Body>
-                                </Card>
-                            ))}
-                        </Row>
-                    </Col>
-                </Row>
+                                                        }
+                                                    >
+                                                        <Button
+                                                            variant="outline-danger"
+                                                            className="folder-actions"
+                                                            onClick={() => deleteModuleFromClass(user.token, module.id, class_.id, addToast)}
+                                                        >
+                                                            <AiOutlineDelete />
+                                                        </Button>
+                                                    </OverlayTrigger>
+                                                ) : null}
+                                            </Card.Link>
+                                        </Card.Body>
+                                    </Card>
+                                ))}
+                            </Row>
+                        </Col>
+                    </Row>
+                </React.Fragment>
             ) : (
                     <Row style={{ marginTop: "100px" }} className="d-flex justify-content-center">
-                        <Spinner animation="border" variant="primary"></Spinner>
+                        <Spinner animation="grow" variant="success" />
+                        <Spinner animation="grow" variant="danger" />
+                        <Spinner animation="grow" variant="warning" />
                     </Row>
                 )}
         </React.Fragment>
     )
 }
-const mapStateToProps = (state: any) => {
-    return {
-        folders: state.folders
-    }
-}
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        getModulesInFolder: (token: string, folder_id: number, addToast: any) => dispatch(getModulesInFolder(token, folder_id, addToast))
+        getModulesInClass: (token: string, class_id: number, addToast: any, setLoading: any) => dispatch(getModulesInClass(token, class_id, addToast, setLoading))
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(AllModuleInClass));
+export default connect(null, mapDispatchToProps)(React.memo(AllModuleInClass)); 

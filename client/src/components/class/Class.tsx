@@ -11,7 +11,7 @@ import UpdateClassFrom from './UpdateClassForm';
 const Folder = (props: any) => {
     const { class_, deleteClass, addToast, user, updateClass } = props;
     const [showUpdateClass, setShowUpdateClass] = useState(false);
-    const hiddenUpdateClassCreateClass = () => {
+    const hideUpdateClass = () => {
         setShowUpdateClass(false);
     }
     return (
@@ -26,15 +26,18 @@ const Folder = (props: any) => {
                 <UpdateClassFrom
                     class_={class_}
                     showUpdateClass={showUpdateClass}
-                    hiddenUpdateClassCreateClass={hiddenUpdateClassCreateClass}
+                    hideUpdateClass={hideUpdateClass}
                     user={user}
                     addToast={addToast}
                     updateClass={updateClass}
                 />
             </Card.Header>
-            <Link to={`class?code=${class_.code}&id=${class_.id}`} style={{textDecoration: "none", color: "black"}}>
+            <Link to={`${user?.user?.username}/class?code=${class_.code}&id=${class_.id}`} style={{textDecoration: "none", color: "black"}}>
                 <Card.Body className="folder-body">
                     <Card.Title>{class_?.name}</Card.Title>
+                    <Card.Text>
+                        {class_?.description}
+                    </Card.Text>
                     <Card.Text style={{ fontWeight: "bold" }}>
                         Chế độ: {class_.public === 1 ? (<AiOutlineEye />) : (<AiOutlineEyeInvisible />)}
                     </Card.Text>

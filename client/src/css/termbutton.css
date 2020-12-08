@@ -1,0 +1,12 @@
+.term-button-container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: .5rem;
+    cursor: pointer;
+}
+
+.term-button-container:hover{
+    color: coral;
+}

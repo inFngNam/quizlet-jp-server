@@ -45,3 +45,13 @@ export const DELETE_MODULE_FROM_FOLDER: Api ={
     url: `${BASE_URL}/folder/module/delete-from-folder`,
     method: HTTP_METHOD.DELETE
 }
+
+export const GENERATE_SHARED_LINK: Api = {
+    url: `${BASE_URL}/folder/generate-shared-link`,
+    method: HTTP_METHOD.GET
+}
+
+export const SHARE_LINK_ACTION: Api = {
+    url: `${BASE_URL}/folder/send-shared-link`,
+    method: HTTP_METHOD.POST
+}

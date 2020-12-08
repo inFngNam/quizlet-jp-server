@@ -21,7 +21,6 @@ const AddModuleToFolder = ({
     }
     const assignModuleToFolderHandle = (module_id: number) => {
         assignModuleToFolder(user.token, module_id, folder.id, addToast);
-        hideAddModuleModal();
     }
     return (
         <Modal show={showAddModule} onHide={hideAddModuleModal}>
