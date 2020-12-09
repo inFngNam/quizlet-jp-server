@@ -78,9 +78,9 @@
   "devDependencies": {
     "@types/react-redux": "^7.1.9"
   },
-  "engines": {
-    "node": "12.x",
-    "npm": "6.x"
-  },
-  "proxy": "https://quizlet-server.herokuapp.com"
+  "proxy": {
+    "/api": {
+      "target": "https://quizlet-server.herokuapp.com"
+    }
+  }
 }

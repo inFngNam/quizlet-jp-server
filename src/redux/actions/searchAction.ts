@@ -11,7 +11,8 @@ export const searchModule = async (token: string, query: QuerySearchInput, callb
         `${SEARCH_MODULE.url}?name=${query.name}&sortBy=${query.sortBy}&sortType=${query.sortType}`,
         {
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`, 'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS'
             }
         }
     )

@@ -99,9 +99,9 @@ export const me = (token: string) => {
         await axios.get(QUERY_ME.url, {
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Origin': 'https://quizlet-server.herokuapp.com',
                 'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS'
-            }
+            },
         })
             .then(response => {
                 dispatch({
@@ -120,7 +120,7 @@ export const logout = (token: String) => {
         await axios.get(USER_LOGOUT.url, {
             headers: {
                 "Authorization": "Bearer " + token,
-                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Origin': 'https://quizlet-server.herokuapp.com',
                 'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS'
             }
         })

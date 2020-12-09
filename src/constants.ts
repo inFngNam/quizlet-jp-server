@@ -1,1 +1,1 @@
-export const BASE_URL = "https://quizlet-server.herokuapp.com/"
+export const BASE_URL = "https://quizlet-server.herokuapp.com"

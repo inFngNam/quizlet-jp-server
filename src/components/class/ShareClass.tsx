@@ -38,7 +38,9 @@ const ShareClass = ({ showShareFolder, hideShareFolder, user, addToast }: any) =
                'link': sharedLink
             }, {
                 headers: {
-                    'Authorization': `Bearer ${user.token}`
+                    'Authorization': `Bearer ${user.token}`,
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS'
                 }
             })
             .then(res => {
